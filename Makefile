@@ -1,5 +1,5 @@
-CSRC	:=
-SSRC	:=
+CSRC	:=	client.c utils.c
+SSRC	:=	server.c utils.c
 
 SRC_DIR :=	sources
 INC_DIR :=	headers
@@ -26,14 +26,14 @@ RM		:=	rm -rf
 
 CNAME	:=	client
 SNAME	:=	server
-NAME	:=	_
+NAME	:= _
 
 all:		obj $(NAME)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS)
 
-$(NAME):	$(CNAME) $(SNAME)
+$(NAME):	$(SNAME) $(CNAME)
 
 $(CNAME):	$(COBJS)
 			$(CC) $(COBJS) -o $(CNAME)
@@ -45,7 +45,7 @@ clean:
 			$(RM) $(OBJS) $(OBJ_DIR)
 
 fclean: 	clean
-			$(RM) $(NAME)
+			$(RM) $(SNAME) $(CNAME)
 
 re: 		fclean all
 
