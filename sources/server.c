@@ -1,5 +1,6 @@
 #include "minitalk.h"
 #include <stdio.h>
+#include <string.h>
 
 #define ZERO 10
 #define ONE 12
@@ -26,14 +27,26 @@ void	set_bit(union u_chr *c, int i, int bit)
 		c->h = i;
 }
 
+void	*realloc_and_concatenate(char *old, int *size, int c)
+{
+	char *new;
+
+	new = (char *)calloc(*size + 1, 1);
+	strcpy(new, old);
+	new[*size - 1] = c;
+	(*size)++;
+	free(old);
+	return (new);
+}
+
 void	build_string(int signal)
 {
-	static char			array[40];
-	static int			i;
+	static char			*ptr;
+	static int			size;
 	static union u_chr	c;
 
-	(void)array;
-	(void)i;
+	ptr = (char *) calloc(1, 1);
+	size = 1;
 	if (counter != 7)
 	{
 		if (signal == ZERO)
@@ -49,7 +62,18 @@ void	build_string(int signal)
 		else if (signal == ONE)
 			set_bit(&c, 1, counter);
 		counter = 0;
-		printf("%c\n", (unsigned char)c.chr);
+		ft_putnbr_fd((int)(unsigned char)c.chr, 1);
+		ft_putchar_fd('\n', 1);
+		ft_putstr_fd(ptr, 1);
+		if ((int)(unsigned char)c.chr == 0)
+		{
+			ft_putstr_fd(ptr, 1);
+			free(ptr);
+			ptr = (char *)calloc(1, 1);
+			size = 1;
+		}
+		ptr = realloc_and_concatenate(ptr, &size, (int)(unsigned char)c.chr);
+		bzero(&c, sizeof(union u_chr));
 	}
 }
 

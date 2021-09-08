@@ -13,15 +13,31 @@ int main(int argc, char **argv)
 	int i = 0;
 	int	pid;
 	int	byte;
+	char	*str;
 
 	(void)argc;
 	pid = ft_atoi(*(argv + 1));
-	byte = *(*(argv + 2));
+	str = (*(argv + 2));
+	while (*str)
+	{
+		byte = *str;
+		i = 0;
+		while (i < 8)
+		{
+			send_bit(pid, (byte >> i) & 0x01);
+			ft_putnbr_fd((byte >> i) & 0x01, 1);
+			usleep(1000);
+			i++;
+		}
+		str++;
+	}
+	byte = 0;
+	i = 0;
 	while (i < 8)
 	{
 		send_bit(pid, (byte >> i) & 0x01);
 		ft_putnbr_fd((byte >> i) & 0x01, 1);
-		usleep(100);
+		usleep(1000);
 		i++;
 	}
 }
