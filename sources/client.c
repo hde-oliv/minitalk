@@ -6,6 +6,7 @@ static int	g_lock;
 void	response_handler(int sig)
 {
 	(void)sig;
+	ft_printf("Got response\n");
 	g_lock = 0;
 }
 

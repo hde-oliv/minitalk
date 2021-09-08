@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "libft.h"
 #include "minitalk.h"
 
 void	set_bit(union u_chr *c, int i, int bit)
@@ -35,7 +36,8 @@ void	build_string(int signal)
 		counter = 0;
 		ft_printf("%c", (unsigned char)c.chr);
 	}
-	counter++;
+	else
+		counter++;
 }
 
 void	signal_handler(int num, siginfo_t *info, void *ctx)
@@ -45,6 +47,7 @@ void	signal_handler(int num, siginfo_t *info, void *ctx)
 		kill(info->si_pid, SIGUSR2);
 	else if (num == SIGUSR2)
 		kill(info->si_pid, SIGUSR1);
+	ft_printf("Got signal!\n");
 	(void)ctx;
 }
 
