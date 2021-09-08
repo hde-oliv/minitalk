@@ -7,6 +7,9 @@
 # include "ft_printf.h"
 # include "libft.h"
 
+# define ZERO 10
+# define ONE 12
+
 union u_chr
 {
 	struct

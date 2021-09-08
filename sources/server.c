@@ -1,11 +1,5 @@
+#include "ft_printf.h"
 #include "minitalk.h"
-#include <stdio.h>
-#include <string.h>
-
-#define ZERO 10
-#define ONE 12
-
-static int counter;
 
 void	set_bit(union u_chr *c, int i, int bit)
 {
@@ -27,69 +21,47 @@ void	set_bit(union u_chr *c, int i, int bit)
 		c->h = i;
 }
 
-void	realloc_and_concatenate(char **ptr, int *size, int c)
-{
-	char *new;
-
-	new = (char *)calloc(*size + 1, 1);
-	strcpy(new, *ptr);
-	new[*size - 1] = c;
-	(*size)++;
-	free(*ptr);
-	*ptr = new;
-}
-
 void	build_string(int signal)
 {
-	static char			*ptr;
-	static int			size;
 	static union u_chr	c;
+	static int			counter;
 
-	if (!ptr)
-		ptr = (char *) calloc(1, 1);
-	if (!size)
-		size = 1;
-	if (counter != 7)
+	if (signal == ZERO)
+		set_bit(&c, 0, counter);
+	else
+		set_bit(&c, 1, counter);
+	if (counter == 7)
 	{
-		if (signal == ZERO)
-			set_bit(&c, 0, counter);
-		else if (signal == ONE)
-			set_bit(&c, 1, counter);
-		counter++;
-	}
-	else if (counter == 7)
-	{
-		if (signal == ZERO)
-			set_bit(&c, 0, counter);
-		else if (signal == ONE)
-			set_bit(&c, 1, counter);
 		counter = 0;
-		if ((int)(unsigned char)c.chr == 0)
-		{
-			ft_putstr_fd(ptr, 1);
-			ft_putchar_fd('\n', 1);
-			free(ptr);
-			ptr = (char *)calloc(1, 1);
-			size = 1;
-		}
-		realloc_and_concatenate(&ptr, &size, (int)(unsigned char)c.chr);
-		bzero(&c, sizeof(union u_chr));
+		if ((int)(unsigned char)c.chr)
+			ft_printf("%c", (int)(unsigned char)c.chr);
 	}
+	else
+		counter++;
 }
 
-void	signal_handler(int num)
+void	signal_handler(int num, siginfo_t *info, void *ctx)
 {
 	build_string(num);
-	(void)num;
+	kill(info->si_pid, SIGUSR1);
+	(void)ctx;
 }
 
-int main(void)
+int	main(void)
 {
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
-	ft_putstr_fd("PID: ", 1);
-	ft_putnbr_fd(getpid(), 1);
-	ft_putstr_fd("\n", 1);
+	struct sigaction	sa;
+	sigset_t			mask;
+
+	ft_bzero(&sa, sizeof(struct sigaction));
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGUSR1);
+	sigaddset(&mask, SIGUSR2);
+	sa.sa_mask = mask;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = signal_handler;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	ft_printf("PID: %d\n", getpid());
 	while (true)
 		pause();
 }
