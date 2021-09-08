@@ -3,7 +3,6 @@
 void	send_next(int sig)
 {
 	(void)sig;
-	write(1, "H", 1);
 }
 
 void send_bit(int pid, int bit)
