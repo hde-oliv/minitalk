@@ -27,16 +27,16 @@ void	set_bit(union u_chr *c, int i, int bit)
 		c->h = i;
 }
 
-void	*realloc_and_concatenate(char *old, int *size, int c)
+void	realloc_and_concatenate(char **ptr, int *size, int c)
 {
 	char *new;
 
 	new = (char *)calloc(*size + 1, 1);
-	strcpy(new, old);
+	strcpy(new, *ptr);
 	new[*size - 1] = c;
 	(*size)++;
-	free(old);
-	return (new);
+	free(*ptr);
+	*ptr = new;
 }
 
 void	build_string(int signal)
@@ -45,8 +45,10 @@ void	build_string(int signal)
 	static int			size;
 	static union u_chr	c;
 
-	ptr = (char *) calloc(1, 1);
-	size = 1;
+	if (!ptr)
+		ptr = (char *) calloc(1, 1);
+	if (!size)
+		size = 1;
 	if (counter != 7)
 	{
 		if (signal == ZERO)
@@ -62,17 +64,15 @@ void	build_string(int signal)
 		else if (signal == ONE)
 			set_bit(&c, 1, counter);
 		counter = 0;
-		ft_putnbr_fd((int)(unsigned char)c.chr, 1);
-		ft_putchar_fd('\n', 1);
-		ft_putstr_fd(ptr, 1);
 		if ((int)(unsigned char)c.chr == 0)
 		{
 			ft_putstr_fd(ptr, 1);
+			ft_putchar_fd('\n', 1);
 			free(ptr);
 			ptr = (char *)calloc(1, 1);
 			size = 1;
 		}
-		ptr = realloc_and_concatenate(ptr, &size, (int)(unsigned char)c.chr);
+		realloc_and_concatenate(&ptr, &size, (int)(unsigned char)c.chr);
 		bzero(&c, sizeof(union u_chr));
 	}
 }
