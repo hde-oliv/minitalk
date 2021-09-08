@@ -1,10 +1,9 @@
-CSRC	:=	client.c utils.c
-SSRC	:=	server.c utils.c
+CSRC	:=	client.c
+SSRC	:=	server.c
 
 SRC_DIR :=	sources
 INC_DIR :=	headers
 OBJ_DIR :=	objects
-TST_DIR	:=	tests
 
 INCLS   :=	$(INC_DIR)
 
@@ -21,33 +20,42 @@ IFLAGS	+=	-I.
 LFLAGS	+=	-L.
 TFLAGS	+=	-fsanitize=address -g3
 OFLAGS	+=	-O3
+MFLAGS	+=	-lftprintf
 
 RM		:=	rm -rf
 
 CNAME	:=	client
 SNAME	:=	server
-NAME	:= _
+NAME	:=	_
 
-all:		obj $(NAME)
+PFT_DIR	:=	ft_printf
+LFT_DIR	:=	ft_printf/libft
+
+all:		pft obj $(NAME)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
-			$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS)
+			$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS) $(IFLAGS)/$(PFT_DIR) $(IFLAGS)/$(LFT_DIR)
 
 $(NAME):	$(SNAME) $(CNAME)
 
 $(CNAME):	$(COBJS)
-			$(CC) $(COBJS) -o $(CNAME)
+			$(CC) $(COBJS) $(LFLAGS)/$(PFT_DIR) $(MFLAGS) -o $(CNAME)
 
 $(SNAME):	$(SOBJS)
-			$(CC) $(SOBJS) -o $(SNAME)
+			$(CC) $(SOBJS) $(LFLAGS)/$(PFT_DIR) $(MFLAGS) -o $(SNAME)
 
 clean:
+			$(MAKE) -C $(PFT_DIR) clean
 			$(RM) $(OBJS) $(OBJ_DIR)
 
 fclean: 	clean
+			$(MAKE) -C $(PFT_DIR) fclean
 			$(RM) $(SNAME) $(CNAME)
 
 re: 		fclean all
+
+pft:
+			$(MAKE) -C $(PFT_DIR)
 
 obj:
 			mkdir -p $(OBJ_DIR)
