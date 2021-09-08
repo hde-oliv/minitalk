@@ -28,22 +28,23 @@ void	build_string(int signal)
 
 	if (signal == ZERO)
 		set_bit(&c, 0, counter);
-	else
+	else if (signal == ONE)
 		set_bit(&c, 1, counter);
 	if (counter == 7)
 	{
 		counter = 0;
-		if ((int)(unsigned char)c.chr)
-			ft_printf("%c", (int)(unsigned char)c.chr);
+		ft_printf("%c", (unsigned char)c.chr);
 	}
-	else
-		counter++;
+	counter++;
 }
 
 void	signal_handler(int num, siginfo_t *info, void *ctx)
 {
 	build_string(num);
-	kill(info->si_pid, SIGUSR1);
+	if (num == SIGUSR1)
+		kill(info->si_pid, SIGUSR2);
+	else if (num == SIGUSR2)
+		kill(info->si_pid, SIGUSR1);
 	(void)ctx;
 }
 
@@ -63,5 +64,5 @@ int	main(void)
 	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("PID: %d\n", getpid());
 	while (true)
-		pause();
+		;
 }
