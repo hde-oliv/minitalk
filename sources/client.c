@@ -6,7 +6,6 @@ static int	g_lock;
 void	response_handler(int sig)
 {
 	(void)sig;
-	ft_printf("Got response\n");
 	g_lock = 0;
 }
 
@@ -37,7 +36,6 @@ int	main(int argc, char **argv)
 		while (i < 8)
 		{
 			send_bit(pid, (*str >> i) & 0x01);
-			ft_printf("%d", (*str >> i) & 0x01);
 			while (g_lock == 1)
 				usleep(200);
 			i++;

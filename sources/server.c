@@ -47,7 +47,6 @@ void	signal_handler(int num, siginfo_t *info, void *ctx)
 		kill(info->si_pid, SIGUSR2);
 	else if (num == SIGUSR2)
 		kill(info->si_pid, SIGUSR1);
-	ft_printf("Got signal!\n");
 	(void)ctx;
 }
 
