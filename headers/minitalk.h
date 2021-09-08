@@ -5,6 +5,24 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
+struct s_bits
+{
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+	int	e;
+	int	f;
+	int	g;
+	int	h;
+};
+
+union u_chr
+{
+	struct s_bits	bits;
+	char			chr;
+};
+
 /* utils */
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
