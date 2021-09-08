@@ -49,24 +49,20 @@ void	build_string(int signal)
 		else if (signal == ONE)
 			set_bit(&c, 1, counter);
 		counter = 0;
-		printf("\n\n%c\n\n", (unsigned char)c.chr);
+		printf("%c\n", (unsigned char)c.chr);
 	}
 }
 
-void	signal_handler(int num, siginfo_t *info, void *ctx)
+void	signal_handler(int num)
 {
 	build_string(num);
-	kill(info->si_pid, SIGUSR1);
-	(void)ctx;
+	(void)num;
 }
 
 int main(void)
 {
-	struct sigaction sa;
-
-	sa.sa_sigaction = signal_handler;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	signal(SIGUSR1, signal_handler);
+	signal(SIGUSR2, signal_handler);
 	ft_putstr_fd("PID: ", 1);
 	ft_putnbr_fd(getpid(), 1);
 	ft_putstr_fd("\n", 1);
