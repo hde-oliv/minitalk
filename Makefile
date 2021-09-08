@@ -1,5 +1,5 @@
 CSRC	:=	client.c
-SSRC	:=	server.c
+SSRC	:=	server.c utils.c
 
 SRC_DIR :=	sources
 INC_DIR :=	headers

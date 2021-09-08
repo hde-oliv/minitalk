@@ -18,6 +18,22 @@ void	send_bit(int pid, int bit)
 	g_lock = 1;
 }
 
+void	send_zero(int pid)
+{
+	int	i;
+	int	byte;
+
+	i = 0;
+	byte = 0;
+	while (i < 8)
+	{
+		send_bit(pid, (byte >> i) & 0x01);
+		while (g_lock == 1)
+			usleep(200);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
@@ -42,4 +58,5 @@ int	main(int argc, char **argv)
 		}
 		str++;
 	}
+	send_zero(pid);
 }

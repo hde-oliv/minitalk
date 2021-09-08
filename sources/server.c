@@ -26,7 +26,9 @@ void	build_string(int signal)
 {
 	static union u_chr	c;
 	static int			counter;
+	static char			*ptr;
 
+	initialize_ptr(&ptr);
 	if (signal == ZERO)
 		set_bit(&c, 0, counter);
 	else if (signal == ONE)
@@ -34,7 +36,8 @@ void	build_string(int signal)
 	if (counter == 7)
 	{
 		counter = 0;
-		ft_printf("%c", (unsigned char)c.chr);
+		concatenate_byte(&ptr, (unsigned char)c.chr);
+		check_end_of_string(&ptr, (unsigned char)c.chr);
 	}
 	else
 		counter++;
