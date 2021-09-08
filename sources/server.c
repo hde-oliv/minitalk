@@ -8,22 +8,22 @@ static int counter;
 
 void	set_bit(union u_chr *c, int i, int bit)
 {
-	if (bit == 1)
-		c->bits.a = i;
+	if (bit == 0)
+		c->a = i;
+	else if (bit == 1)
+		c->b = i;
 	else if (bit == 2)
-		c->bits.b = i;
+		c->c = i;
 	else if (bit == 3)
-		c->bits.c = i;
+		c->d = i;
 	else if (bit == 4)
-		c->bits.d = i;
+		c->e = i;
 	else if (bit == 5)
-		c->bits.e = i;
+		c->f = i;
 	else if (bit == 6)
-		c->bits.f = i;
+		c->g = i;
 	else if (bit == 7)
-		c->bits.g = i;
-	else if (bit == 8)
-		c->bits.h = i;
+		c->h = i;
 }
 
 void	build_string(int signal)
@@ -34,7 +34,7 @@ void	build_string(int signal)
 
 	(void)array;
 	(void)i;
-	if (counter != 8)
+	if (counter != 7)
 	{
 		if (signal == ZERO)
 			set_bit(&c, 0, counter);
@@ -42,7 +42,7 @@ void	build_string(int signal)
 			set_bit(&c, 1, counter);
 		counter++;
 	}
-	else if (counter == 8)
+	else if (counter == 7)
 	{
 		if (signal == ZERO)
 			set_bit(&c, 0, counter);
@@ -60,21 +60,21 @@ void	build_string(int signal)
 			"c.g = %d\n"
 			"c.h = %d\n"
 			"#######\n",
-			c.bits.a,
-			c.bits.b,
-			c.bits.c,
-			c.bits.d,
-			c.bits.e,
-			c.bits.f,
-			c.bits.g,
-			c.bits.h);
+			c.a,
+			c.b,
+			c.c,
+			c.d,
+			c.e,
+			c.f,
+			c.g,
+			c.h);
+		printf("\n\n%c\n\n", (char)(unsigned char)c.chr);
 	}
 }
 
 void	signal_handler(int num)
 {
 	build_string(num);
-	kill(400, SIGUSR2);
 	(void)num;
 }
 
@@ -86,5 +86,5 @@ int main(void)
 	ft_putnbr_fd(getpid(), 1);
 	ft_putstr_fd("\n", 1);
 	while (true)
-		sleep(1);
+		pause();
 }

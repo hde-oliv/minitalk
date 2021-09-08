@@ -5,22 +5,20 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-struct s_bits
-{
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-	int	e;
-	int	f;
-	int	g;
-	int	h;
-};
-
 union u_chr
 {
-	struct s_bits	bits;
-	char			chr;
+	struct
+	{
+		int	a:1;
+		int	b:1;
+		int	c:1;
+		int	d:1;
+		int	e:1;
+		int	f:1;
+		int	g:1;
+		int	h:1;
+	};
+	char	chr;
 };
 
 /* utils */
