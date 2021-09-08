@@ -5,7 +5,7 @@ static int	g_lock;
 void	response_handler(int sig)
 {
 	(void)sig;
-	g_lock = 0;
+	g_lock = 1;
 }
 
 void	send_bit(int pid, int bit)
@@ -14,7 +14,6 @@ void	send_bit(int pid, int bit)
 		kill(pid, SIGUSR1);
 	else
 		kill(pid, SIGUSR2);
-	g_lock = 1;
 }
 
 int	main(int argc, char **argv)
@@ -36,7 +35,9 @@ int	main(int argc, char **argv)
 		while (i < 8)
 		{
 			send_bit(pid, (byte >> i) & 0x01);
-			pause();
+			while (!g_lock)
+				;
+			g_lock = 0;
 			i++;
 		}
 		str++;
