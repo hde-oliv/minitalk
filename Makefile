@@ -32,6 +32,10 @@ LFT_DIR	:=	ft_printf/libft
 
 all:		pft obj $(NAME)
 
+srv:		pft obj $(SNAME)
+
+cnt:		pft obj $(CNAME)
+
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(CC) $(CFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS) $(IFLAGS)/$(PFT_DIR) $(IFLAGS)/$(LFT_DIR)
 
@@ -61,4 +65,4 @@ pft:
 obj:
 			mkdir -p $(OBJ_DIR)
 
-.PHONY: 	all clean fclean re obj
+.PHONY: 	all clean fclean re obj server client bonus pft
