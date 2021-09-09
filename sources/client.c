@@ -32,6 +32,7 @@ void	send_zero(int pid)
 		while (g_lock == 1)
 			pause();
 		i++;
+		g_lock = 0;
 	}
 }
 
@@ -56,8 +57,10 @@ int	main(int argc, char **argv)
 			while (g_lock == 1)
 				pause();
 			i++;
+			g_lock = 0;
 		}
 		str++;
 	}
 	send_zero(pid);
+	return (0);
 }

@@ -1,6 +1,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 #include "minitalk.h"
+#include <unistd.h>
 
 void	set_bit(union u_chr *c, int i, int bit)
 {
@@ -38,7 +39,6 @@ void	build_string(int signal)
 		counter = 0;
 		concatenate_byte(&ptr, (unsigned char)c.chr);
 		check_end_of_string(&ptr, (unsigned char)c.chr);
-		ft_printf("%c", (unsigned char)c.chr);
 	}
 	else
 		counter++;
@@ -47,19 +47,9 @@ void	build_string(int signal)
 void	signal_handler(int num, siginfo_t *info, void *ctx)
 {
 	build_string(num);
-	if (num == SIGUSR1)
-	{
-		usleep(200);
-		kill(info->si_pid, SIGUSR2);
-	}
-	else if (num == SIGUSR2)
-	{
-		usleep(200);
-		kill(info->si_pid, SIGUSR1);
-	}
-	else {
-		ft_printf("Linux arrombado\n");
-	}
+	usleep(100);
+	kill(info->si_pid, SIGUSR2);
+	usleep(100);
 	(void)ctx;
 }
 
@@ -79,5 +69,6 @@ int	main(void)
 	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("PID: %d\n", getpid());
 	while (true)
-		;
+		pause();
+	return (0);
 }

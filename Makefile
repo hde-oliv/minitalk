@@ -19,7 +19,6 @@ CFLAGS	+=	-Wall -Wextra -Werror -pedantic
 IFLAGS	+=	-I.
 LFLAGS	+=	-L.
 TFLAGS	+=	-fsanitize=address -g3
-OFLAGS	+=	-O3
 MFLAGS	+=	-lftprintf
 
 RM		:=	rm -rf
@@ -34,7 +33,7 @@ LFT_DIR	:=	ft_printf/libft
 all:		pft obj $(NAME)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
-			$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS) $(IFLAGS)/$(PFT_DIR) $(IFLAGS)/$(LFT_DIR)
+			$(CC) $(CFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS) $(IFLAGS)/$(PFT_DIR) $(IFLAGS)/$(LFT_DIR)
 
 $(NAME):	$(SNAME) $(CNAME)
 
