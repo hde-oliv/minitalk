@@ -15,7 +15,7 @@ SOBJS	:=	$(SSRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC		:=	clang
 
-CFLAGS	+=	-Wall -Wextra -Werror -pedantic
+CFLAGS	+=	-Wall -Wextra -Werror
 IFLAGS	+=	-I.
 LFLAGS	+=	-L.
 TFLAGS	+=	-fsanitize=address -g3
@@ -52,6 +52,8 @@ fclean: 	clean
 			$(RM) $(SNAME) $(CNAME)
 
 re: 		fclean all
+
+bonus:		all
 
 pft:
 			$(MAKE) -C $(PFT_DIR)

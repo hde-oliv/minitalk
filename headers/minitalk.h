@@ -3,12 +3,14 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include "ft_printf.h"
 # include "libft.h"
 
 # define ZERO 10
 # define ONE 12
+# define KILL_ERR "Couldn't send a signal."
+# define SIGA_ERR "Couldn't establish signal listening."
+# define MALL_ERR "Couldn't allocate memory."
 
 union u_chr
 {
@@ -29,6 +31,6 @@ union u_chr
 void	initialize_ptr(char **ptr);
 void	concatenate_byte(char **ptr, char c);
 void	check_end_of_string(char **ptr, char c);
-void	ft_error(char *str);
+void	err(char *str);
 
 #endif

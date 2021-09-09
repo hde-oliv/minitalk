@@ -8,7 +8,7 @@ void	initialize_ptr(char **ptr)
 	{
 		*ptr = (char *)ft_calloc(1, 1);
 		if (*ptr == NULL)
-			ft_error("malloc");
+			err(MALL_ERR);
 	}
 }
 
@@ -20,7 +20,7 @@ void	concatenate_byte(char **ptr, char c)
 	size = ft_strlen(*ptr) + 1;
 	new = (char *)ft_calloc(size + 1, 1);
 	if (new == NULL)
-		ft_error("malloc");
+		err(MALL_ERR);
 	ft_strlcpy(new, *ptr, size + 1);
 	new[size - 1] = c;
 	free(*ptr);
@@ -37,8 +37,8 @@ void	check_end_of_string(char **ptr, char c)
 	}
 }
 
-void	ft_error(char *str)
+void	err(char *str)
 {
-	perror(str);
+	ft_printf("Error: %s\n", str);
 	exit(1);
 }
