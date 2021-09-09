@@ -1,4 +1,4 @@
-CSRC	:=	client.c
+CSRC	:=	client.c utils.c
 SSRC	:=	server.c utils.c
 
 SRC_DIR :=	sources

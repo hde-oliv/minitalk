@@ -29,5 +29,6 @@ union u_chr
 void	initialize_ptr(char **ptr);
 void	concatenate_byte(char **ptr, char c);
 void	check_end_of_string(char **ptr, char c);
+void	ft_error(char *str);
 
 #endif

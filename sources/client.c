@@ -12,9 +12,15 @@ void	response_handler(int sig)
 void	send_bit(int pid, int bit)
 {
 	if (!bit)
-		kill(pid, SIGUSR1);
+	{
+		if (kill(pid, SIGUSR1))
+			ft_error("kill");
+	}
 	else
-		kill(pid, SIGUSR2);
+	{
+		if (kill(pid, SIGUSR2))
+			ft_error("kill");
+	}
 	while (g_lock == 0)
 		;
 	g_lock = 0;
@@ -45,7 +51,8 @@ int	main(int argc, char **argv)
 	str = (*(argv + 2));
 	ft_bzero(&sa, sizeof(struct sigaction));
 	sa.sa_handler = response_handler;
-	sigaction(SIGUSR2, &sa, NULL);
+	if (sigaction(SIGUSR2, &sa, NULL))
+		ft_error("sigaction");
 	while (*str)
 	{
 		i = 0;

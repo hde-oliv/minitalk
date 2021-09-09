@@ -41,7 +41,8 @@ void	signal_handler(int num, siginfo_t *info, void *ctx)
 	}
 	else
 		counter++;
-	kill(info->si_pid, SIGUSR2);
+	if (kill(info->si_pid, SIGUSR2))
+		ft_error("kill");
 	(void)ctx;
 }
 
@@ -57,8 +58,10 @@ int	main(void)
 	sa.sa_mask = mask;
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = signal_handler;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	if (sigaction(SIGUSR1, &sa, NULL))
+		ft_error("sigaction");
+	if (sigaction(SIGUSR2, &sa, NULL))
+		ft_error("sigaction");
 	ft_printf("PID: %d\n", getpid());
 	while (true)
 		pause();
