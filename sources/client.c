@@ -28,8 +28,9 @@ void	send_zero(int pid)
 	while (i < 8)
 	{
 		send_bit(pid, (byte >> i) & 0x01);
+		ft_printf("%d\n", (byte >> i) & 0x01);
 		while (g_lock == 1)
-			usleep(200);
+			pause();
 		i++;
 	}
 }
@@ -53,7 +54,7 @@ int	main(int argc, char **argv)
 		{
 			send_bit(pid, (*str >> i) & 0x01);
 			while (g_lock == 1)
-				usleep(200);
+				pause();
 			i++;
 		}
 		str++;
