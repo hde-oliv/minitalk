@@ -1,7 +1,6 @@
 #include "ft_printf.h"
 #include "libft.h"
 #include "minitalk.h"
-#include <unistd.h>
 
 void	set_bit(union u_chr *c, int i, int bit)
 {
@@ -23,16 +22,16 @@ void	set_bit(union u_chr *c, int i, int bit)
 		c->h = i;
 }
 
-void	build_string(int signal)
+void	signal_handler(int num, siginfo_t *info, void *ctx)
 {
 	static union u_chr	c;
 	static int			counter;
 	static char			*ptr;
 
 	initialize_ptr(&ptr);
-	if (signal == ZERO)
+	if (num == ZERO)
 		set_bit(&c, 0, counter);
-	else if (signal == ONE)
+	else if (num == ONE)
 		set_bit(&c, 1, counter);
 	if (counter == 7)
 	{
@@ -42,14 +41,7 @@ void	build_string(int signal)
 	}
 	else
 		counter++;
-}
-
-void	signal_handler(int num, siginfo_t *info, void *ctx)
-{
-	build_string(num);
-	usleep(100);
 	kill(info->si_pid, SIGUSR2);
-	usleep(100);
 	(void)ctx;
 }
 
