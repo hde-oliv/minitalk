@@ -39,7 +39,7 @@ cnt:		pft obj $(CNAME)
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(CC) $(CFLAGS) -c $< -o $@ $(IFLAGS)/$(INCLS) $(IFLAGS)/$(PFT_DIR) $(IFLAGS)/$(LFT_DIR)
 
-$(NAME):	$(SNAME) $(CNAME)
+$(NAME):	$(CNAME) $(SNAME)
 
 $(CNAME):	$(COBJS)
 			$(CC) $(COBJS) $(LFLAGS)/$(PFT_DIR) $(MFLAGS) -o $(CNAME)
@@ -65,4 +65,4 @@ pft:
 obj:
 			mkdir -p $(OBJ_DIR)
 
-.PHONY: 	all clean fclean re obj server client bonus pft
+.PHONY: 	all clean fclean re bonus pft
