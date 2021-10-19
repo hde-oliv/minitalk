@@ -17,21 +17,21 @@
 void	set_bit(union u_chr *c, int i, int bit)
 {
 	if (bit == 0)
-		c->a = i;
+		c->byte.a = i;
 	else if (bit == 1)
-		c->b = i;
+		c->byte.b = i;
 	else if (bit == 2)
-		c->c = i;
+		c->byte.c = i;
 	else if (bit == 3)
-		c->d = i;
+		c->byte.d = i;
 	else if (bit == 4)
-		c->e = i;
+		c->byte.e = i;
 	else if (bit == 5)
-		c->f = i;
+		c->byte.f = i;
 	else if (bit == 6)
-		c->g = i;
+		c->byte.g = i;
 	else if (bit == 7)
-		c->h = i;
+		c->byte.h = i;
 }
 
 void	signal_handler(int num, siginfo_t *info, void *ctx)

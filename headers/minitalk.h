@@ -24,20 +24,22 @@
 # define SIGA_ERR "Couldn't establish signal listening."
 # define MALL_ERR "Couldn't allocate memory."
 
+struct s_byte
+{
+	int	a:1;
+	int	b:1;
+	int	c:1;
+	int	d:1;
+	int	e:1;
+	int	f:1;
+	int	g:1;
+	int	h:1;
+};
+
 union u_chr
 {
-	struct
-	{
-		int	a:1;
-		int	b:1;
-		int	c:1;
-		int	d:1;
-		int	e:1;
-		int	f:1;
-		int	g:1;
-		int	h:1;
-	};
-	char	chr;
+	struct s_byte	byte;
+	char			chr;
 };
 
 void	initialize_ptr(char **ptr);
