@@ -1,7 +1,4 @@
-<div align="center">
-</div>
-<div align="center">
-</div>
+# Minitalk
 
 ## What it is
 A project to understand better the usage of UNIX signals, it consists of a server and
