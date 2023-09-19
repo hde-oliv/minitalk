@@ -3,7 +3,7 @@
 ![Example](./assets/example.gif)
 
 ## What is it?
-A project  to gain a better understanding of how processes communicate with each other using [POSIX signals](https://en.wikipedia.org/wiki/Signal_(IPC)).  
+A project to gain a better understanding of how processes communicate with each other using [POSIX signals](https://en.wikipedia.org/wiki/Signal_(IPC)).  
 
 It consists of two programs: a server and a client.
 The client is capable of sending text messages to the server, and the server displays them.
