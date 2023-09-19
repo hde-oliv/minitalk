@@ -3,12 +3,12 @@
 ![Example](./assets/example.gif)
 
 ## What is it?
-A project  to gain a better understanding of how processes communicate with each other using UNIX signals.  
+A project  to gain a better understanding of how processes communicate with each other using [POSIX signals](https://en.wikipedia.org/wiki/Signal_(IPC)).  
 
 It consists of two programs: a server and a client.
 The client is capable of sending text messages to the server, and the server displays them.
 
-This communication is made using only UNIX signals (e.g., SIGUSER1 and SIGUSER2) and is possible by the client sending the text message bit by bit and then reconstructing the text on the server.
+This communication is made using only [POSIX signals](https://en.wikipedia.org/wiki/Signal_(IPC)) (e.g., SIGUSER1 and SIGUSER2) and is possible by the client sending the text message bit by bit and then reconstructing the text on the server.
 
 **Succeeded with 115%**
 
