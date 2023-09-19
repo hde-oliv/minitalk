@@ -8,7 +8,7 @@ A project to gain a better understanding of how processes communicate with each 
 It consists of two programs: a server and a client.
 The client is capable of sending text messages to the server, and the server displays them.
 
-This communication is made using only [POSIX signals](https://en.wikipedia.org/wiki/Signal_(IPC)) (e.g., SIGUSER1 and SIGUSER2) and is possible by the client sending the text message bit by bit and then reconstructing the text on the server.
+This communication is made using only [POSIX signals](https://en.wikipedia.org/wiki/Signal_(IPC)) (e.g., SIGUSER1 and SIGUSER2) and is possible by the client sending the text message bit by bit and then reconstructing it on the server.
 
 **Succeeded with 115%**
 
