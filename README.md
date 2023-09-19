@@ -1,20 +1,25 @@
 # Minitalk
 
-## What it is
-A project to understand better the usage of UNIX signals, it consists of a server and
-a client, the last sends a string to the server using only 2 permitted signals (SIGUSR1, 
-SIGUSR2) and the server must print it on the console.
+![Example](./assets/example.gif)
 
-Succeeded with 115%
+## What is it?
+A project  to gain a better understanding of how processes communicate with each other using UNIX signals.  
+
+It consists of two programs: a server and a client.
+The client is capable of sending text messages to the server, and the server displays them.
+
+This communication is made using only UNIX signals (e.g., SIGUSER1 and SIGUSER2) and is possible by the client sending the text message bit by bit and then reconstructing the text on the server.
+
+**Succeeded with 115%**
 
 ## Skills
 - Rigor
 - Unix logic
 
 ## How to use it
-Requisites:
+Requirements:
 ```shell
-clang
+sudo apt install clang
 ```
 
 Clone the repository and run:
@@ -22,19 +27,20 @@ Clone the repository and run:
 make
 ```
 
-Both server and client will be generated, after that, run the server on background
-with:
+Both the server and client will be generated, after that, you can run the server in the background.
 ```shell
 ./server &
 ```
 
-Its PID will be printed, with that you can execute the client, passing the PID and
-a string to be printed.
+Its PID will be printed, and with that, you can execute the client, passing the PID and a string.
 ```shell
-./client <PID> "Just remember ALL CAPS when you spell the man name"
+./client <PID> "Oh my gah!"
 ```
 
-## Found any bug?
+## Found any bugs?
 Feel free to contact me or create an issue!
 
-###### Licensed under GPLv3
+
+## License
+This project is licensed under the GNU General Public License v3.0 - see the [COPYING](https://github.com/hde-oliv/minitalk/blob/master/COPYING) file for details.
+
